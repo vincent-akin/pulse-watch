@@ -1,0 +1,16 @@
+"use client";
+import { useEffect } from "react";
+import { useRouter } from "next/navigation";
+import { useAuth } from "@/lib/AuthContext";
+import { PageSpinner } from "@/components/ui/Spinner";
+
+export default function RootPage() {
+  const { user, loading } = useAuth();
+  const router = useRouter();
+
+  useEffect(() => {
+    if (!loading) router.replace(user ? "/dashboard" : "/login");
+  }, [loading, user, router]);
+
+  return <PageSpinner />;
+}
